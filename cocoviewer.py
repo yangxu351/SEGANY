@@ -113,7 +113,10 @@ def open_image(full_img_path: str):
     # Open image
     img_open = Image.open(full_img_path).convert("RGBA")
     # Create layer for bboxes and masks
-    draw_layer = Image.new("RGBA", img_open.size, (255, 255, 255, 0))
+    # draw_layer = Image.new("RGBA", img_open.size, (255, 255, 255, 0))
+    # FIXME: without Alpha
+    # draw_layer = Image.new("RGB", img_open.size, (0, 0, 0))
+    draw_layer = Image.new("RGB", img_open.size, (255, 255, 255))
     draw = ImageDraw.Draw(draw_layer)
     return img_open, draw_layer, draw
 
@@ -207,9 +210,13 @@ def draw_masks(draw, objects, obj_categories, ignore, alpha):
     for i, (c, m) in enumerate(zip(obj_categories, masks)):
         if i not in ignore:
             alpha = alpha
-            fill = tuple(list(c[-1]) + [alpha])
+            # fill = tuple(list(c[-1]) + [alpha])
+            # FIXME: without alpha
+            fill = tuple(list(c[-1]))
+            # fill = tuple
             # Polygonal masks work fine
             if isinstance(m, list):
+                
                 for m_ in m:
                     if m_:
                         draw.polygon(m_, outline=fill, fill=fill)
