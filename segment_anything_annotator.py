@@ -11,8 +11,8 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--onnx-model-path", type=str, default="sam_onnx.onnx")
-    parser.add_argument("--dataset-path", type=str, default="dataset")
-    parser.add_argument("--categories", type=str)
+    parser.add_argument("--dataset-path", type=str, default="F:\\PapersWithCode\\robotData")
+    parser.add_argument("--categories", type=str, default='bj, hq, zl, ss, ym')
     args = parser.parse_args()
 
     onnx_model_path = args.onnx_model_path
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     if args.categories is not None:
         categories = args.categories.split(",")
     
-    coco_json_path = os.path.join(dataset_path,"annotations.json")
+    coco_json_path = os.path.join(dataset_path,"annotations-1.json")
 
     editor = Editor(
         onnx_model_path,
